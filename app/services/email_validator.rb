@@ -1,12 +1,4 @@
 class EmailValidator
-    class NoResultsError < StandardError; end
-
-    include ActiveModel::Validations
-
-    validates :first_name, presence: true
-    validates :last_name, presence: true
-    validates :url, presence: true
-
     attr_reader :first_name, :last_name, :url
     attr_accessor :valid_email, :valid_email_available, :email_permutations
 
@@ -29,8 +21,9 @@ class EmailValidator
     def find_valid_email
         @email_permutations.each do |email|
             check_api(email) 
-            break if valid_email_available
+            # break if valid_email_available
         end
+
         unless valid_email_available
             update_user("No valid email available!")
         end
@@ -42,16 +35,15 @@ class EmailValidator
         response = HTTParty.get("https://apilayer.net/api/check?access_key=d0ea522ae2832ccb5b48f17e91f8d179&email=#{email}")
         formatted_response = response.parsed_response
         if formatted_response["format_valid"] and formatted_response["mx_found"] and formatted_response["smtp_check"]
-            puts "#{email} is a valid and available email address"
-            @valid_email_available = true
             update_user(email)
-        else
-            puts "#{email} is not valid"
+            @valid_email_available = true
         end
+        puts formatted_response
     end
     
     def update_user(email)
         @user.update_attribute :valid_email, email
+        raise StandardError
     end
 end
   

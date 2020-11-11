@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    before_action :set_user, only: [:update, :destroy]
+
     def index
         @users = User.all
         @user = User.new
@@ -12,17 +14,26 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         respond_to do |format|
             if @user.save
-              format.html { redirect_to users_path, notice: 'User was successfully created.' }
+              format.html { redirect_to users_path }
             else
-              format.html { redirect_to users_path, notice: 'User was successfully created.' }
+              format.html { redirect_to users_path }
             end
         end
     end
 
-    def find_valid_email
+
+    def destroy
+        @user.destroy
+        respond_to do |format|
+            format.html { redirect_to users_path }
+        end
     end
 
     private
+
+    def set_user
+        @user = User.find(params[:id])
+    end
 
     def user_params
         params.require(:user).permit(:first_name, :last_name, :url)
