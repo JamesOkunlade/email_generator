@@ -7,8 +7,8 @@ class EmailValidator
       @first_name = user.first_name.downcase
       @last_name = user.last_name.downcase
       @url = user.url.downcase
-      @completion_status = false
-      @email_permutations = [
+      self.completion_status = false
+      self.email_permutations = [
           "#{first_name}.#{last_name}@#{url}",
           "#{first_name}@#{url}",
           "#{first_name}#{last_name}@#{url}",
@@ -19,10 +19,11 @@ class EmailValidator
     end
 
     def find_valid_email        
-      @email_permutations.each do |email|
+      email_permutations.each do |email|
         check_api(email) 
         break if completion_status
       end
+
       unless completion_status
         update_user("No valid email available!")
       end  
@@ -35,14 +36,14 @@ class EmailValidator
       formatted_response = response.parsed_response
       if formatted_response["format_valid"] and formatted_response["mx_found"] and formatted_response["smtp_check"]
         update_user(email)
-      end
-      puts email
+    end
+    # puts email
     end
     
     def update_user(email)
       @user.update_attribute :valid_email, email
       @completion_status = true
-      raise StandardError
+      raise StandardError 
     end
 end
   
