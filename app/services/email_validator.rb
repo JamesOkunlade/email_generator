@@ -1,6 +1,6 @@
 class EmailValidator
     attr_reader :first_name, :last_name, :url
-    attr_accessor :valid_email, :email_permutations, :completion_status
+    attr_accessor :valid_email, :email_permutations
 
     ACCESS_KEY = '59243f6da3f4e639bb9cd59c6f2ec5b5'
 
@@ -9,7 +9,6 @@ class EmailValidator
       @first_name = user.first_name.downcase
       @last_name = user.last_name.downcase
       @url = user.url.downcase
-      self.completion_status = false
       self.email_permutations = [
           "#{first_name}.#{last_name}@#{url}",
           "#{first_name}@#{url}",
@@ -21,14 +20,17 @@ class EmailValidator
     end
 
     def find_valid_email        
-      email_permutations.each do |email|
-        check_api(email) 
-        break if completion_status
+      email =
+        email_permutations.find do |email|
+          response = check_api(email)
+          response["format_valid"] and response["mx_found"] and response["smtp_check"] 
+        end
+      
+      if email
+        update_user(email)
+      else
+        update_user("No valid email available")
       end
-
-      unless completion_status
-        update_user("No valid email available!")
-      end  
     end
 
     private
@@ -37,15 +39,11 @@ class EmailValidator
       # The free subscription of Mailbox does not support catch_all detection
       response = HTTParty.get("https://apilayer.net/api/check?access_key=#{ACCESS_KEY}&email=#{email}")
       formatted_response = response.parsed_response
-      if formatted_response["format_valid"] and formatted_response["mx_found"] and formatted_response["smtp_check"]
-        update_user(email)
-      end
-      puts formatted_response 
+      formatted_response
     end
     
     def update_user(email)
       @user.update_attribute :valid_email, email
-      @completion_status = true
       raise StandardError 
     end
 end
