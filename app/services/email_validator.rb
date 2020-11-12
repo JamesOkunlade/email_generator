@@ -2,6 +2,8 @@ class EmailValidator
     attr_reader :first_name, :last_name, :url
     attr_accessor :valid_email, :email_permutations, :completion_status
 
+    ACCESS_KEY = '59243f6da3f4e639bb9cd59c6f2ec5b5'
+
     def initialize(user)
       @user = user
       @first_name = user.first_name.downcase
@@ -32,12 +34,14 @@ class EmailValidator
     private
 
     def check_api(email)
-      response = HTTParty.get("https://apilayer.net/api/check?access_key=1d004e1f89a7f8728e223b19d5225a7d&email=#{email}")
+      # The free subscription of Mailbox does not support catch_all detection
+      response = HTTParty.get("https://apilayer.net/api/check?access_key=#{ACCESS_KEY}&email=#{email}")
       formatted_response = response.parsed_response
       if formatted_response["format_valid"] and formatted_response["mx_found"] and formatted_response["smtp_check"]
         update_user(email)
       end
-    puts email
+      puts formatted_response 
+      puts email
     end
     
     def update_user(email)
