@@ -36,8 +36,8 @@ class EmailValidator
       formatted_response = response.parsed_response
       if formatted_response["format_valid"] and formatted_response["mx_found"] and formatted_response["smtp_check"]
         update_user(email)
-    end
-    # puts email
+      end
+    puts email
     end
     
     def update_user(email)
