@@ -41,7 +41,6 @@ class EmailValidator
         update_user(email)
       end
       puts formatted_response 
-      puts email
     end
     
     def update_user(email)
