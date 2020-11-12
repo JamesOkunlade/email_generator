@@ -4,6 +4,10 @@
 
 This is an application that lets users find a valid and available email address based on the contacts's name and url
 
+
+**Note** The application is based on rails ActiveJob. When a user is created, the model enqueus a job to perform an api check on the predefined different combinations of the contact's first name, last name and url. While the job is in the queue, the valid email field of a user record is set to "Checking for available valid email..." and once the job detects a valid combination, it updates the record field with the valid email found. The record field is set to "No available email" if upon the completion of the job no valid email was found.
+
+
 Specification summary:
 
 - ActiveJob
@@ -53,10 +57,6 @@ rails db:migrate
 ```
 rails s
 ```
-
-
-**Note** The application is based on rails ActiveJob. When a user is created, the model enqueus a job to perform an api check on the predefined different combinations of the contact's first name, last name and url. While the job is in the queue, the valid email field of a user record is set to "Checking for available valid email..." and once the job detects a valid combination, it updates the record field with the valid email found. The record field is set to "No available email" if upon the completion of the job no valid email was found.
-
 
 ## Live Version
 
