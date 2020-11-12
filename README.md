@@ -73,7 +73,9 @@ rails s
 
 The production app uses the free subscription of Mailboxlayer API so the number of requests might have been exhausted at the time of trying it. It's best to setup your own locally and create your own free/paid subscription to Mailboxlayer API to get an access key.
 
-<!-- CONTACT -->
+## Contribution
+
+The issues page contains a list of issues that I have identified and intend solving. In the meantime if you found the issue intriguing and would like to help kindly fork, fix the issue and open a PR.
 
 ## Author
 
