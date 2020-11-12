@@ -61,7 +61,7 @@ rails s
 ## Live Version
 
 This is the link to the api documentation - 
-[Email generator]()<br>
+[Email generator](https://fierce-bastion-34096.herokuapp.com/)<br>
 
 <!-- CONTACT -->
 
