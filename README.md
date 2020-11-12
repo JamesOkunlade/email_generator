@@ -52,6 +52,15 @@ rails db:create
 rails db:migrate
 ```
 
+- Setup Mailboxlayer API Access key
+
+```
+Visit [Mailboxlayer](https://mailboxlayer.com/) to generate an access key
+Find the email_validator file in the app/services folder
+Replace the ACCESS_KEY='YOUR_ACCESS_KEY'
+```
+
+
 - Start the server
 
 ```
@@ -60,8 +69,9 @@ rails s
 
 ## Live Version
 
-This is the link to the api documentation - 
-[Email generator](https://fierce-bastion-34096.herokuapp.com/)<br>
+[Email generator](https://fierce-bastion-34096.herokuapp.com/)
+
+The production app uses the free subscription of Mailboxlayer API so the number of requests might have been exhausted at the time of trying it. It's best to setup your own locally and create your own free/paid subscription to Mailboxlayer API to get an access key.
 
 <!-- CONTACT -->
 
