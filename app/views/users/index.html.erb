@@ -1,6 +1,6 @@
 <%= render 'form', user: @user %>
 
-<h3>Valid emails</h3>
+<h3>Email generator</h3>
 
 <table>
   <thead>
@@ -13,21 +13,20 @@
   </thead>
 
   <tbody>
-        <% @users.each do |user| %>
-        <tr>
-            <td><%= user.first_name %></td>
-            <td><%= user.last_name %></td>
-            <td><%= user.url %></td>
-            <% if user.valid_email %>
-              <td><%= user.valid_email %>
-            <% else %>
-              <td>Processing...</td>
-            <% end %>
-            <td><%= link_to 'remove', user, remote: true, method: :delete %></td>
-        </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.url %></td>
+        <% if user.valid_email %>
+          <td><%= user.valid_email %>
+        <% else %>
+          <td>Checking for available email...</td>
         <% end %>
+        <td><%= link_to 'remove', user, remote: true, method: :delete %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
-<br>
 
