@@ -54,11 +54,9 @@ rails db:migrate
 
 - Setup Mailboxlayer API Access key
 
-```
 Visit [Mailboxlayer](https://mailboxlayer.com/) to generate an access key
 Find the email_validator file in the app/services folder
 Replace the ACCESS_KEY='YOUR_ACCESS_KEY'
-```
 
 
 - Start the server
