@@ -1,5 +1,5 @@
 class FindValidEmailJob < ApplicationJob
-    queue_as :default
+    queue_as :urgent
 
     discard_on(StandardError) do |job, error|
       ExceptionNotifier.caught(error)

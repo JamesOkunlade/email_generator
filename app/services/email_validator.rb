@@ -2,7 +2,7 @@ class EmailValidator
     attr_reader :first_name, :last_name, :url
     attr_accessor :valid_email, :email_permutations
 
-    ACCESS_KEY = '59243f6da3f4e639bb9cd59c6f2ec5b5'
+    ACCESS_KEY = 'ce00f8e85eb216ef9b776cd1177e6126'
 
     def initialize(user)
       @user = user
