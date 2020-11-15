@@ -56,7 +56,7 @@ class EmailValidator
     end
     
     def update_user(email)
-      @user.update_attribute :valid_email, email
+      @user.update_columns(valid_email: email)
       raise StandardError 
     end
 end
