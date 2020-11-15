@@ -1,4 +1,6 @@
 class EmailValidator
+  require 'open-uri'
+
     attr_reader :first_name, :last_name, :url
     attr_accessor :valid_email, :email_permutations
 
@@ -19,6 +21,16 @@ class EmailValidator
         ]
     end
 
+    def check
+      validate_url(url) ? find_valid_email : update_user("Invalid url")
+    end
+    
+    def validate_url(url)
+      open("https://#{url}").status
+    rescue 
+      false
+    end
+    
     def find_valid_email        
       email =
         email_permutations.find do |email|
@@ -39,6 +51,7 @@ class EmailValidator
       # The free subscription of Mailbox does not support catch_all detection
       response = HTTParty.get("https://apilayer.net/api/check?access_key=#{ACCESS_KEY}&email=#{email}")
       formatted_response = response.parsed_response
+      puts email
       formatted_response
     end
     

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  before_save :check_records
+  # before_save :check_records
   after_save :find_valid_email
 
   validates :first_name, presence: true
