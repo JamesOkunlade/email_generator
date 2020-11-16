@@ -9,14 +9,19 @@ class User < ApplicationRecord
   private
 
   def check_records
-    existing_user = User.find_by(first_name: self.first_name, last_name: self.last_name, url: self.url)
-    self.destroy if existing_user and existing_user.valid_email
+    user_table = Arel::Table.new(:users)
+    query = user_table[:first_name].matches("%#{self.first_name}%").and(user_table[:last_name].matches("%#{self.last_name}%").and(user_table[:url].matches("%#{self.url}%")))
+    query.to_sql
+    existing_user = User.where( query )
+    self.destroy if existing_user.length > 0    
   end
 
   def find_valid_email
     FindValidEmailJob.perform_later(id)
   end
 end
+
+
 
 
 
