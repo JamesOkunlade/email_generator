@@ -54,9 +54,17 @@ rails db:migrate
 
 - Setup Mailboxlayer API Access key
 
-Visit [Mailboxlayer](https://mailboxlayer.com/) to generate an access key
-Find the email_validator file in the app/services folder
-Replace the ACCESS_KEY='YOUR_ACCESS_KEY'
+Visit [Mailboxlayer](https://mailboxlayer.com/) to generate an access key.
+
+- Generate a `config/application.yml` to the access key by setting up figaro
+
+```
+bundle exec figaro install
+```
+
+Find the `config/application.yml` file and set your access key as an enviroment variable:
+
+`MAILBOX_ACCESS_KEY: your_access_key`
 
 
 - Start the server
