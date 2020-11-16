@@ -66,6 +66,8 @@ Find the `config/application.yml` file and set your access key as an enviroment 
 
 `MAILBOX_ACCESS_KEY: your_access_key`
 
+**Note** If you're deploying live, check for the figaro config for whatever platform you're deploying to.
+
 
 - Start the server
 
@@ -75,7 +77,7 @@ rails s
 
 ## Live Version
 
-[Email generator](https://fierce-bastion-34096.herokuapp.com/)
+[Email generator](https://morning-woodland-12792.herokuapp.com/)
 
 The production app uses the free subscription of Mailboxlayer API so the number of requests might have been exhausted at the time of trying it. It's best to setup your own locally and create your own free/paid subscription to Mailboxlayer API to get an access key.
 
