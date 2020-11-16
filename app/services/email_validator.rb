@@ -48,7 +48,6 @@ class EmailValidator
     # The free subscription of Mailbox does not support catch_all detection
     response = HTTParty.get("https://apilayer.net/api/check?access_key=#{ENV["MAILBOX_ACCESS_KEY"]}&email=#{email}")
     formatted_response = response.parsed_response
-    puts email
     formatted_response
   end
     
